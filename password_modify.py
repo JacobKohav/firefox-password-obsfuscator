@@ -55,6 +55,7 @@ def reformat_credentials (credentials_df):
     credentials_df = credentials_df [['resource', 'url', 'username', 'password']]
     credentials_df = credentials_df.set_axis(['resource', 'domain', 'username', 'password'], axis=1)
 
+    # Alphabetize by resource name
     credentials_df = credentials_df.sort_values('resource')
     
     return (credentials_df)
@@ -69,7 +70,6 @@ def obsfuscate_username (credentials_df, names):
     return (credentials_df)
 
 def obsfuscate_credentials (credentials_df):
-
     print ("Obsfuscating credentials...")
 
     # Letter characters
@@ -83,7 +83,9 @@ def obsfuscate_credentials (credentials_df):
     return (credentials_df)
 
 def export_credentials (credentials_df):
-    print ("exporting")
+    print ("Exporting to .csv...")
+
+    credentials_df.to_csv('../testingoutput.csv', index=True)  
 
 def testingfunction():
     import re
@@ -106,7 +108,6 @@ def testingfunction():
     # return (ser)
     return (out2)
 
-
 def main(credentials_file_str):
     
     # Request name to obfuscaste optimally
@@ -118,14 +119,12 @@ def main(credentials_file_str):
     credentials_df = reformat_credentials (credentials_df)
     # credentials_df = obsfuscate_username (credentials_df, [name_first, name_last])
     credentials_df = obsfuscate_username (credentials_df, [None, None])
-
     credentials_df = obsfuscate_credentials (credentials_df)
+
+    export_credentials (credentials_df)
 
     # Print table (use Tabulate library for formatting)
     print("\n", tabulate(credentials_df, showindex=True, tablefmt = "github", headers=credentials_df.columns), "\n")
     # display (credentials_df)
-
-    # display(testingfunction())
-    # print ("\n")
 
 main("../passwords.csv")
