@@ -19,6 +19,7 @@ def import_credentials (credentials_file_str, credentials_df):
 
     open_credentials = open(credentials_file_str)
     credentials_df = pd.read_csv(credentials_file_str)
+    credentials_df.reset_index(inplace=True) # Add indices
     return (credentials_df)
 
 def reformat_credentials (credentials_df):
@@ -54,6 +55,8 @@ def reformat_credentials (credentials_df):
     credentials_df = credentials_df [['resource', 'url', 'username', 'password']]
     credentials_df = credentials_df.set_axis(['resource', 'domain', 'username', 'password'], axis=1)
 
+    credentials_df = credentials_df.sort_values('resource')
+    
     return (credentials_df)
 
 def obsfuscate_username (credentials_df, names):
@@ -76,7 +79,6 @@ def obsfuscate_credentials (credentials_df):
     credentials_df['password'] = credentials_df['password'].str.replace(r"([A-Z,a-z]{2})[A-Z,a-z]{1,2}[A-Z,a-z]*([A-Z,a-z]{2})", r'\1...  ...\2', regex=True) # 5 - 6 letters
 
     credentials_df['password'] = credentials_df['password'].str.replace(r"([0-9]{1})[0-9]{1,3}([0-9]{1})", r'\1..\2', regex=True) # 5 - 6 letters
-
 
     return (credentials_df)
 
@@ -120,7 +122,7 @@ def main(credentials_file_str):
     credentials_df = obsfuscate_credentials (credentials_df)
 
     # Print table (use Tabulate library for formatting)
-    print("\n", tabulate(credentials_df, showindex=False, headers=credentials_df.columns), "\n")
+    print("\n", tabulate(credentials_df, showindex=True, tablefmt = "github", headers=credentials_df.columns), "\n")
     # display (credentials_df)
 
     # display(testingfunction())
