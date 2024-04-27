@@ -2,6 +2,8 @@ from IPython.display import display
 import pandas as pd
 import numpy as np
 from tabulate import tabulate
+from datetime import datetime
+from datetime import date
 
 # Modify display options for native Pandas display
 pd.set_option('display.max_columns', 5)
@@ -63,7 +65,6 @@ def reformat_credentials (credentials_df):
 def obsfuscate_username (credentials_df, names):
     print ("Obsfuscating usernames...")
 
-    # TODO modify logic for incremental processing of common patterns
     credentials_df['username'] = credentials_df['username'].str.replace(r"([a-z]{2})[a-z, .]*([a-z]{2})([@][a-z]{2})[a-z]*([a-z])", r'\1.. ..\2\3..\4', regex=True)
     credentials_df['username'] = credentials_df['username'].str.replace(r"([a-z]{1})[a-z, .]*([a-z]{1}[0-9]{1})[0-9]*([0-9]{1}[@][a-z]{2})[a-z]*([a-z])", r'\1..\2..\3..\4', regex=True)
 
@@ -78,6 +79,7 @@ def obsfuscate_credentials (credentials_df):
     credentials_df['password'] = credentials_df['password'].str.replace(r"([A-Z,a-z]{3})[A-Z,a-z]{1}([A-Z,a-z]{1})[A-Z,a-z]*([A-Z,a-z]{2})", r'\1...\2...\3', regex=True) # 7 letters
     credentials_df['password'] = credentials_df['password'].str.replace(r"([A-Z,a-z]{2})[A-Z,a-z]{1,2}[A-Z,a-z]*([A-Z,a-z]{2})", r'\1...  ...\2', regex=True) # 5 - 6 letters
 
+    # Numerical characters
     credentials_df['password'] = credentials_df['password'].str.replace(r"([0-9]{1})[0-9]{1,3}([0-9]{1})", r'\1..\2', regex=True) # 5 - 6 letters
 
     return (credentials_df)
@@ -85,7 +87,11 @@ def obsfuscate_credentials (credentials_df):
 def export_credentials (credentials_df):
     print ("Exporting to .csv...")
 
-    credentials_df.to_csv('../testingoutput.csv', index=True)  
+    #TODO add 
+    identifier = datetime.now().strftime("%Y-%m-%d_%Hh%Mm%Ss")
+    credentials_df.to_csv(f'../creds_obfuscated_{identifier}.csv', index=True)  
+
+    print (f"Exported `creds_obfuscated_{identifier}.csv`\n")
 
 def testingfunction():
     import re
@@ -121,10 +127,10 @@ def main(credentials_file_str):
     credentials_df = obsfuscate_username (credentials_df, [None, None])
     credentials_df = obsfuscate_credentials (credentials_df)
 
-    export_credentials (credentials_df)
-
     # Print table (use Tabulate library for formatting)
     print("\n", tabulate(credentials_df, showindex=True, tablefmt = "github", headers=credentials_df.columns), "\n")
     # display (credentials_df)
+
+    export_credentials (credentials_df)
 
 main("../passwords.csv")
