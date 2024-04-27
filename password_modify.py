@@ -126,4 +126,4 @@ def main(credentials_file_str):
     # display(testingfunction())
     # print ("\n")
 
-main("passwords.csv")
+main("../passwords.csv")
