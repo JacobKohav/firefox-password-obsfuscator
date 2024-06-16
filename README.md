@@ -53,3 +53,4 @@ A program executable on an exported `Mozilla Firefox` browser saved password exp
 * [ ] Dictionary for correcting common domain names to associated organiation's name
 * [ ] Categoriation of domain names by resource type
 * [ ] Single-page printable formatting
+* [ ] Add-on for native application within browser
