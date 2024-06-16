@@ -133,4 +133,4 @@ def main(credentials_file_str):
 
     export_credentials (credentials_df)
 
-main("../passwords.csv")
+main("passwords.csv")
