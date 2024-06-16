@@ -1,7 +1,7 @@
 # firefox-password-obsfuscator
 firefox-password-obsfuscator
 
-A program executable on an exported `Mozilla Firefox` browser saved password export to obfuscate authetnication credentials for further reference and/or backup.
+A program executable on an exported `Mozilla Firefox` browser saved password export to obfuscate authentication credentials for further reference and/or backup.
 
 ## Dependencies
 * `Pandas`
