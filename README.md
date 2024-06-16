@@ -12,16 +12,30 @@ A program executable on an exported `Mozilla Firefox` browser saved password exp
 ## How to use
 * Clone this repository
 * Export your passwords saved in Mozilla Firefox into the directory above the repository's directory
-  * Ex. if the repository is in `desktop/firefox-password-obsfuscator`, place the exported `passwords.csv` into `desktop/`. 
 
-  * The structure should look akin to the following from the example:
+  * Open the `Passwords` manager
+    ![](resources/step_01.png)
 
-    ```
-        ├── desktop/
-        │   ├── firefox-password-obsfuscator/
-        │   │   ├── <repository_files>
-        │   ├── passwords.csv
-    ```
+  * Select `Export Passwords...` option
+    ![](resources/step_02.png)
+
+  * Confirm with warning regarding exposed authentication credentials with `Continue with export`
+    ![](resources/step_03.png)
+
+  * Save exported `passwords.csv` credentials file
+  ![](resources/step_04.png)
+
+    * Ex. if the repository is in `desktop/firefox-password-obsfuscator`, place the exported `passwords.csv` into `desktop/`. 
+
+    * The structure should look akin to the following from the example:
+
+      ```
+          ├── desktop/
+          │   ├── firefox-password-obsfuscator/
+          │   │   ├── <repository_files>
+          │   ├── passwords.csv
+      ```
+      
 * Execute the program with relevant commands from the directory above
   
   * Ex. from `/desktop/` where the repository is nested relative as `/desktop/firefox-password-obsfuscator`
