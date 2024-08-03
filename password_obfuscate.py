@@ -4,6 +4,7 @@ import numpy as np
 from tabulate import tabulate
 from datetime import datetime
 from datetime import date
+import sys
 
 # Modify display options for native Pandas display
 pd.set_option('display.max_columns', 5)
@@ -89,7 +90,7 @@ def export_credentials (credentials_df):
 
     #TODO add 
     identifier = datetime.now().strftime("%Y-%m-%d_%Hh%Mm%Ss")
-    credentials_df.to_csv(f'../creds_obfuscated_{identifier}.csv', index=True)  
+    credentials_df.to_csv(f'creds_obfuscated_{identifier}.csv', index=True)  
 
     print (f"Exported `creds_obfuscated_{identifier}.csv`\n")
 
@@ -114,14 +115,16 @@ def testingfunction():
     # return (ser)
     return (out2)
 
-def main(credentials_file_str):
-    
+# def main(credentials_file_str):
+def main(): 
+    args = sys.argv[1:]
+
     # Request name to obfuscaste optimally
     # name_first = input ("What is your FIRST name? ")
     # name_last = input ("What is your LAST name? ")
 
     credentials_df = pd.DataFrame()
-    credentials_df = import_credentials (credentials_file_str, credentials_df)
+    credentials_df = import_credentials (args[0], credentials_df)
     credentials_df = reformat_credentials (credentials_df)
     # credentials_df = obsfuscate_username (credentials_df, [name_first, name_last])
     credentials_df = obsfuscate_username (credentials_df, [None, None])
@@ -133,4 +136,5 @@ def main(credentials_file_str):
 
     export_credentials (credentials_df)
 
-main("passwords.csv")
+# main("passwords.csv")
+main()

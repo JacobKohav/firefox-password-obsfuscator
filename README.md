@@ -41,7 +41,7 @@ A program executable on an exported `Mozilla Firefox` browser saved password exp
   * Ex. from `/desktop/` where the repository is nested relative as `/desktop/firefox-password-obsfuscator`
 
     ```
-    python3 firefox-password-obsfuscator/password_obfuscate.py
+    python3 firefox-password-obsfuscator/password_obfuscate.py passwords.csv
     ```
 
 * The program will output a file with naming convention such as `creds_obfuscated_2024-06-15_22h33m14s.csv`
